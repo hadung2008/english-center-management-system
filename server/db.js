@@ -16,18 +16,23 @@ const { Pool } = require('pg');
 //   connectionTimeoutMillis: 2000, // How long to wait for a connection
 // });
 
+// const pool = new Pool({
+//   user: 'engcenter_user', // or your postgres user
+//   host: 'dpg-d45ccsadbo4c73fq2lag-a',
+//   database: 'engcenter',
+//   password: 'o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ', // your postgres password
+//   port: 5432,
+//   ssl: {
+//     rejectUnauthorized: false // Required for Render.com PostgreSQL
+//   },
+//   max: 20, // Maximum number of clients in the pool
+//   idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
+//   connectionTimeoutMillis: 2000, // How long to wait for a connection
+// });
+
 const pool = new Pool({
-  user: 'engcenter_user', // or your postgres user
-  host: 'dpg-d45ccsadbo4c73fq2lag-a',
-  database: 'engcenter',
-  password: 'o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ', // your postgres password
-  port: 5432,
-  ssl: {
-    rejectUnauthorized: false // Required for Render.com PostgreSQL
-  },
-  max: 20, // Maximum number of clients in the pool
-  idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
-  connectionTimeoutMillis: 2000, // How long to wait for a connection
+    connectionString: 'postgresql://engcenter_user:o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ@dpg-d45ccsadbo4c73fq2lag-a/engcenter'
+    // KHÔNG cần cấu hình SSL khi dùng Internal URL
 });
 // Add event listeners for pool connection issues
 pool.on('error', (err, client) => {
