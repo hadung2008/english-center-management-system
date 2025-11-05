@@ -1,0 +1,5 @@
+{
+  "name": "English Center Management System",
+  "description": "A comprehensive dashboard to manage students, teachers, classes, and finances for an English language center. It features analytics, student enrollment, and scheduling functionalities.",
+  "requestFramePermissions": []
+}

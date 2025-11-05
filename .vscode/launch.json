@@ -1,0 +1,61 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        // {
+        //     "type": "node-terminal",
+        //     "name": "Run Script: dev (role-based-permission-manager (4))",
+        //     "request": "launch",
+        //     "command": "npm run dev",
+        //     "cwd": "${workspaceFolder}"
+        // }
+        {
+            "name": "Node.js: Backend",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/server/index.js", // Đảm bảo đúng đường dẫn tới file server chính của bạn
+            "runtimeArgs": ["--inspect"],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }, 
+        {
+            // "name": "React: Frontend",
+            // "type": "chrome", // Hoặc "msedge" nếu dùng Edge
+            // "request": "launch",
+            // "url": "http://localhost:5173/", // Đảm bảo đúng cổng ứng dụng React đang chạy
+            // "webRoot": "${workspaceFolder}/src"
+            "name": "React: Frontend",
+            "type": "chrome", // recommended modern adapter
+            "request": "launch",
+            "url": "http://localhost:3000/",
+            "webRoot": "${workspaceFolder}/client",
+
+            // enable verbose adapter logs (prints to Debug Console)
+            "trace": true,
+
+            // ensure source maps are used and override paths for Vite/webpack => original TS/JS files
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+            "webpack:///src/*": "${webRoot}/src/*",
+            "webpack:///*": "${webRoot}/*",
+            "webpack:///./*": "${webRoot}/*",
+            "/src/*": "${webRoot}/src/*",
+            "/*": "${webRoot}/*"
+            }
+        }
+
+    ],
+    "compounds": [
+        {
+            "name": "Fullstack Debug",
+            "configurations": [
+                "Node.js: Backend", // Tên cấu hình Node.js
+                "React: Frontend"   // Tên cấu hình React
+            ]
+        }
+    ]
+}
