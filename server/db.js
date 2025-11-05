@@ -2,9 +2,23 @@ const { Pool } = require('pg');
 
 // IMPORTANT:
 // Replace these with your actual PostgreSQL connection details.
+// const pool = new Pool({
+//   user: 'engcenter_user', // or your postgres user
+//   host: 'dpg-d45ccsadbo4c73fq2lag-a.singapore-postgres.render.com',
+//   database: 'engcenter',
+//   password: 'o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ', // your postgres password
+//   port: 5432,
+//   ssl: {
+//     rejectUnauthorized: false // Required for Render.com PostgreSQL
+//   },
+//   max: 20, // Maximum number of clients in the pool
+//   idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
+//   connectionTimeoutMillis: 2000, // How long to wait for a connection
+// });
+
 const pool = new Pool({
   user: 'engcenter_user', // or your postgres user
-  host: 'dpg-d45ccsadbo4c73fq2lag-a.singapore-postgres.render.com',
+  host: 'dpg-d45ccsadbo4c73fq2lag-a',
   database: 'engcenter',
   password: 'o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ', // your postgres password
   port: 5432,
@@ -15,7 +29,6 @@ const pool = new Pool({
   idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
   connectionTimeoutMillis: 2000, // How long to wait for a connection
 });
-
 // Add event listeners for pool connection issues
 pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err);
