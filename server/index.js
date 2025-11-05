@@ -6,25 +6,25 @@ const PORT = 3001;
 
 // Middleware
 // Lấy URL từ biến môi trường của Render (hoặc để mặc định)
-const allowedOrigins = [
-    'https://english-center-management-system.onrender.com/', // Thay bằng domain thật của React
-    'http://localhost:3000' // Dành cho phát triển cục bộ
-];
+// const allowedOrigins = [
+//     'https://english-center-management-system.onrender.com/', // Thay bằng domain thật của React
+//     'http://localhost:3000' // Dành cho phát triển cục bộ
+// ];
 
-app.use(cors({
-    origin: (origin, callback) => {
-        // Cho phép các request không có origin (như mobile apps, curl)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Các phương thức được phép
-    credentials: true
-}));
-//app.use(cors());
+// app.use(cors({
+//     origin: (origin, callback) => {
+//         // Cho phép các request không có origin (như mobile apps, curl)
+//         if (!origin) return callback(null, true);
+//         if (allowedOrigins.indexOf(origin) === -1) {
+//             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+//             return callback(new Error(msg), false);
+//         }
+//         return callback(null, true);
+//     },
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Các phương thức được phép
+//     credentials: true
+// }));
+app.use(cors());
 app.use(express.json());
 
 // --- API ROUTES ---
