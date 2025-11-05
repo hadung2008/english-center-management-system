@@ -1,7 +1,7 @@
 import { Student, Teacher, Class, Course, Transaction, AttendanceRecord, Grade, Reward, Redemption, PointTransaction, Room, StudentLevel, User, UserRole, Permission, AttendanceStatus } from '../types';
 
 // --- API CONFIGURATION ---
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://english-center-management-system-api.onrender.com';
 let isConnectionError = false;
 
 // --- HELPER FUNCTIONS ---
