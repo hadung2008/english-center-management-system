@@ -1,5 +1,5 @@
-const { Pool } = require('pg');
-
+//const { Pool } = require('pg');
+//const connectionString = process.env.DATABASE_URL;
 // IMPORTANT:
 // Replace these with your actual PostgreSQL connection details.
 // const pool = new Pool({
@@ -30,17 +30,53 @@ const { Pool } = require('pg');
 //   connectionTimeoutMillis: 2000, // How long to wait for a connection
 // });
 
-const pool = new Pool({
-    connectionString: 'postgresql://engcenter_user:o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ@dpg-d45ccsadbo4c73fq2lag-a/engcenter'
+//const pool = new Pool({
+    //connectionString: 'postgresql://engcenter_user:o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ@dpg-d45ccsadbo4c73fq2lag-a/engcenter'
     // KHÔNG cần cấu hình SSL khi dùng Internal URL
 });
 // Add event listeners for pool connection issues
+//pool.on('error', (err, client) => {
+  //console.error('Unexpected error on idle client', err);
+//});
+
+//pool.on('connect', () => {
+  console.log('Database connected successfully');
+//});
+
+const { Pool } = require('pg');
+
+// 1. Đảm bảo biến môi trường DATABASE_URL chứa Chuỗi Kết Nối Pooler của Supabase
+// (Ví dụ: postgres://postgres.[PROJECT_REF]:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres)
+const connectionString = process.env.SUPABASE_CONNECTION_STRING;
+
+// Cấu hình kết nối
+let poolConfig = {
+    connectionString: connectionString,
+    // Các tùy chọn khác của pool
+    max: 20, // Số lượng client tối đa trong pool
+    idleTimeoutMillis: 30000, // Thời gian client được phép nhàn rỗi
+    connectionTimeoutMillis: 2000, // Thời gian chờ kết nối
+};
+
+// 2. Thêm cấu hình SSL nếu bạn sử dụng chuỗi kết nối Supabase trực tiếp
+// Supabase yêu cầu kết nối SSL. Khi dùng Pooler, thư viện 'pg' thường tự xử lý
+// nhưng nếu có lỗi kết nối SSL trên môi trường cloud, hãy thử bật cấu hình này.
+// if (connectionString && connectionString.includes('supabase.co')) {
+//     poolConfig.ssl = {
+//         rejectUnauthorized: false // Cho phép kết nối qua SSL mặc dù chứng chỉ không được xác thực chính thức (đôi khi cần thiết trên cloud)
+//     };
+// }
+// Tùy chọn: Để an toàn hơn, chỉ nên sử dụng Pooler của Supabase và thường không cần cấu hình SSL thủ công.
+
+const pool = new Pool(poolConfig);
+
+// Thêm listeners cho các vấn đề kết nối
 pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err);
+    console.error('Lỗi không mong muốn trên client nhàn rỗi:', err);
 });
 
 pool.on('connect', () => {
-  console.log('Database connected successfully');
+    console.log('Kết nối Supabase Database thành công');
 });
 
 // Wrapper function with retry logic
