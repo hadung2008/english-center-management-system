@@ -33,14 +33,14 @@
 //const pool = new Pool({
     //connectionString: 'postgresql://engcenter_user:o0XdyjAJF6a6mdCBx9sNCNIIhgfSHHNQ@dpg-d45ccsadbo4c73fq2lag-a/engcenter'
     // KHÔNG cần cấu hình SSL khi dùng Internal URL
-});
+//});
 // Add event listeners for pool connection issues
 //pool.on('error', (err, client) => {
   //console.error('Unexpected error on idle client', err);
 //});
 
 //pool.on('connect', () => {
-  console.log('Database connected successfully');
+  //console.log('Database connected successfully');
 //});
 
 const { Pool } = require('pg');
